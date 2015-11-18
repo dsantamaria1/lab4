@@ -1,4 +1,5 @@
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class RationalTest extends TestCase {
 
@@ -19,10 +20,22 @@ public class RationalTest extends TestCase {
         assertEquals(new Rational(3,3), new Rational(1,1));
     }
 
+    
+    
     // Test for nonequality
     public void testNonEquality() {
         assertFalse(new Rational(2,3).equals(
             new Rational(1,3)));
+    }
+    
+    // Test for nonequality
+    public void testNonEquality2() {
+        assertFalse(new Rational(2,3).equals(new Integer(9)));
+    }
+    
+    // Test for nonequality
+    public void testNonEquality3() {
+        assertFalse(new Rational(2,3).equals(null));
     }
 
     public void testAccessors() {
@@ -319,6 +332,16 @@ public class RationalTest extends TestCase {
         assertEquals(result, true);
     }
     
+    
+    public void testLessThan0_2(){
+        Rational op1 = new Rational(0,8);
+        Rational op2 = new Rational(1,-8);
+        boolean result;
+        
+        result = op2.isLessThan(op1);
+        assertEquals(result, true);
+    }
+    
     //********************** Absolute ************************
     public void testAbs(){// pos and 0 num and neg den
         Rational op1 = new Rational(-3,5);
@@ -353,6 +376,23 @@ public class RationalTest extends TestCase {
         String str = number.toString();
         
         assertEquals(str, "-7/23");
+    }
+    
+    public void testTolerance(){
+        Rational test = new Rational(1,1);
+        test.setTolerance(new Rational(2,576));
+        assertEquals(test.getTolerance(), new Rational(2,576));
+    }
+    
+    @Test(expected = IllegalArgumentToSquareRootException.class)
+    public void testIllegalArgumentToSquareRootException(){
+        Rational nullRational = new Rational(0, -1);
+        try{
+            System.out.println("Root of nullRational is " + nullRational.root());
+        }
+        catch(IllegalArgumentToSquareRootException e){
+            
+        }
     }
     
     public static void main(String args[]) {
