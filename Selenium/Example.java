@@ -81,6 +81,7 @@ public class Example extends TestCase  {
         // Check the title of the page
         assertEquals("Online temperature conversion calculator", driver.getTitle());
 
+//// checking farenheit 0
 	WebElement tempInput = driver.findElement(By.name("farenheitTemperature"));
 	tempInput.clear();
 	tempInput.sendKeys("0.00");
@@ -89,6 +90,7 @@ public class Example extends TestCase  {
 	WebElement tempResult = driver.findElement(By.tagName("h2"));
         assertEquals("0.00 Farenheit = -17.78 Celsius", tempResult.getText());
 	
+//// checking farenheit 212
 	driver.get("http://apt-public.appspot.com/testing-lab-calculator.html");
 	WebElement tempInput2 = driver.findElement(By.name("farenheitTemperature"));
 	tempInput2.clear();
@@ -97,9 +99,64 @@ public class Example extends TestCase  {
 	tempInput2.submit();
 	WebElement tempResult2 = driver.findElement(By.tagName("h2"));
         assertEquals("212.00 Farenheit = 100 Celsius", tempResult2.getText());
+
+
+	driver.get("http://apt-public.appspot.com/testing-lab-calculator.html");
+	WebElement tempInput3 = driver.findElement(By.name("farenheitTemperature"));
+	tempInput3.clear();
+	tempInput3.sendKeys("212.25");
+	
+	tempInput3.submit();
+	WebElement tempResult3 = driver.findElement(By.tagName("h2"));
+        assertEquals("212.25 Farenheit = 100.1 Celsius", tempResult3.getText());
+
         driver.quit();
     }
  
+    public void testLockout(){
+        WebDriver driver = new HtmlUnitDriver();
+        //get the website
+        driver.get("http://apt-public.appspot.com/testing-lab-login.html");
+
+        // Find the text user name and password elements by their name
+
+          //get the website
+          driver.get("http://apt-public.appspot.com/testing-lab-login.html");
+          WebElement userName = driver.findElement(By.name("userId"));
+          WebElement password = driver.findElement(By.name("userPassword"));
+
+          //clear elements
+          userName.clear();
+          password.clear();
+          userName.sendKeys("aandy");
+          password.sendKeys("apple");
+          password.submit();
+          assertEquals("Bad Login", driver.getTitle());	
+          
+          driver.get("http://apt-public.appspot.com/testing-lab-login.html");
+	  userName = driver.findElement(By.name("userId"));
+          password = driver.findElement(By.name("userPassword"));
+	  userName.clear();
+          password.clear();
+          userName.sendKeys("andy");
+          password.sendKeys("aapple");
+          password.submit();
+          assertEquals("Bad Login", driver.getTitle());	
+          
+	  driver.get("http://apt-public.appspot.com/testing-lab-login.html");
+	  userName = driver.findElement(By.name("userId"));
+          password = driver.findElement(By.name("userPassword"));
+	  userName.clear();
+          password.clear();
+          userName.sendKeys("andy");
+          password.sendKeys("Apple");
+          password.submit();
+          assertEquals("Frequent Login", driver.getTitle());	
+    }
+
+    public void testParameters(){
+	
+    }
 
     public static void main(String[] args) {
         String[] testCaseName = { Example.class.getName() };
