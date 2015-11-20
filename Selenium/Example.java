@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -21,21 +22,68 @@ public class Example extends TestCase  {
 	userName.clear();
 	password.clear();
 
- 	userName.sendKeys("bob");
-	password.sendKeys("bathtub");
+ 	userName.sendKeys("andy");
+	password.sendKeys("apple");
         
 	// Now submit the form. WebDriver will find the form for us from the element
         password.submit();
 
         // Check the title of the page
-        System.out.println("Page title is: " + driver.getTitle());
+        assertEquals("Online temperature conversion calculator", driver.getTitle());
 
         driver.quit();
     }
    
 
-    public void testInvalidLogin(){}
-a
+    public void testInvalidLogin(){
+
+	ArrayList<String> testUserNames = new ArrayList<String>();
+	ArrayList<String> testPassWords = new ArrayList<String>();
+
+	testUserNames.add("bob");
+	testUserNames.add("bobby");
+	testUserNames.add("bo b");
+	testUserNames.add("bob");
+
+  	testPassWords.add("bath");
+  	testPassWords.add("bathtub");
+  	testPassWords.add("bathtub");
+  	testPassWords.add("bath tub");
+
+        WebDriver driver = new HtmlUnitDriver();
+  	//get the website
+        driver.get("http://apt-public.appspot.com/testing-lab-login.html");
+        
+     	// Find the text user name and password elements by their name
+        WebElement userName;
+        WebElement password;
+ 
+       //clear elements
+        for(int i = 0; i < testUserNames.size(); i++){
+          System.out.println("iteration is " + i);   
+  	  //get the website
+          driver.get("http://apt-public.appspot.com/testing-lab-login.html");
+          if(i == 0){
+            userName = driver.findElement(By.name("userId"));
+            password = driver.findElement(By.name("userPassword"));
+          }
+	  userName.clear();
+	  password.clear();
+
+ 	  userName.sendKeys(testUserNames.get(0));
+	  password.sendKeys(testPassWords.get(0));
+          
+	  // Now submit the form. WebDriver will find the form for us from the element
+          password.submit();
+
+          // Check the title of the page
+          assertEquals("Bad Login", driver.getTitle());
+
+          driver.close();
+       }
+    }
+
+
     //focus on one user profile
     public void testUserNameCaseSensitive(){} 
     public void testPassWordCaseSensitive(){}
