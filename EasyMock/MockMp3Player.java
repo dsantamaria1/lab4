@@ -7,7 +7,10 @@ public class MockMp3Player implements Mp3Player {
   private double currPos = 0.0;
   
   public void play(){
-    playing = true;
+    if(songList.size() > 0){
+      playing = true;
+      currPos += 0.1;
+    }
   } 
 
   public void pause(){
@@ -27,11 +30,15 @@ public class MockMp3Player implements Mp3Player {
   }
 
   public void next(){
-    currSong++;
+    if(currSong < (songList.size() - 1) ){
+      currSong++;
+    }
   }
 
   public void prev(){
-    currSong--;
+    if(currSong > 0){
+      currSong--;
+    }
   }
 
   public boolean isPlaying(){
