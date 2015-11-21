@@ -25,7 +25,7 @@ public class Example extends TestCase  {
   	testPassWords.add("bath tub");
 
         WebDriver driver = new HtmlUnitDriver();
-  	//get the website
+  	    //get the website
         driver.get("http://apt-public.appspot.com/testing-lab-login.html");
         
      	// Find the text user name and password elements by their name
@@ -35,26 +35,26 @@ public class Example extends TestCase  {
         //for(int i = 0; i < testUserNames.size(); i++){
         for(int i = 0; i < 1; i++){
           //System.out.println("iteration is " + i);   
-  	  //get the website
+  	      //get the website
           driver.get("http://apt-public.appspot.com/testing-lab-login.html");
           userName = driver.findElement(By.name("userId"));
           password = driver.findElement(By.name("userPassword"));
           
           //clear elements
-	  userName.clear();
-	  password.clear();
+          userName.clear();
+	      password.clear();
 
- 	  userName.sendKeys(testUserNames.get(0));
-	  password.sendKeys(testPassWords.get(0));
+ 	      userName.sendKeys(testUserNames.get(0));
+	      password.sendKeys(testPassWords.get(0));
           
-	  // Now submit the form. WebDriver will find the form for us from the element
+	      // Now submit the form. WebDriver will find the form for us from the element
           password.submit();
 
           // Check the title of the page
           assertEquals("Bad Login", driver.getTitle());
 
           driver.close();
-       }
+        }
     }
 
 
@@ -146,12 +146,22 @@ public class Example extends TestCase  {
 	  driver.get("http://apt-public.appspot.com/testing-lab-login.html");
 	  userName = driver.findElement(By.name("userId"));
           password = driver.findElement(By.name("userPassword"));
-	  userName.clear();
+          userName.clear();
           password.clear();
           userName.sendKeys("andy");
           password.sendKeys("Apple");
           password.submit();
-          assertEquals("Frequent Login", driver.getTitle());	
+          assertEquals("Frequent Login", driver.getTitle());
+        
+          driver.get("http://apt-public.appspot.com/testing-lab-login.html");
+          userName = driver.findElement(By.name("userId"));
+          password = driver.findElement(By.name("userPassword"));
+          userName.clear();
+          password.clear();
+          userName.sendKeys("andy");
+          password.sendKeys("apple");
+          password.submit();
+          assertEquals("Frequent Login", driver.getTitle());
     }
 
     public void testParameters(){
